@@ -24,12 +24,12 @@ public class SecurityConfig {
         return http
                 .sessionManagement(management ->
                         management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(Authorize->
+                .authorizeHttpRequests(Authorize ->
                         Authorize.requestMatchers("/api/**").authenticated()
                                 .requestMatchers("/api/super-admin/**")
                                 .hasRole("ADMIN")
                                 .anyRequest().permitAll()
-                ).addFilterBefore(new jwtValidator(),
+                ).addFilterBefore(new JwtValidator(),
                         BasicAuthenticationFilter.class
                 ).csrf(AbstractHttpConfigurer::disable)
                 .cors(
@@ -37,26 +37,25 @@ public class SecurityConfig {
                 ).build();
     }
 
-}
 
-
-private CorsConfigurationSource corsConfigurationSource() {
-    return new CorsConfigurationSource() {
-        @Override
-        public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-            CorsConfiguration cfg= new CorsConfiguration();
-            cfg.setAllowedOrigins(
-                    Arrays.asList(
-                            "http://localhost:5173",
-                            "http://localhost"
-                    )
-            );
-            cfg.setAllowedMethods(Collections.singletonList("*"));
-            cfg.setAllowCredentials(true);
-            cfg.setAllowedHeaders(Collections.singletonList("*"));
-            cfg.setExposedHeaders(Arrays.asList("Authorization"));
-            cfg.setMaxAge(3600L);
-            return cfg;
-        }
-    };
+    private CorsConfigurationSource corsConfigurationSource() {
+        return new CorsConfigurationSource() {
+            @Override
+            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+                CorsConfiguration cfg = new CorsConfiguration();
+                cfg.setAllowedOrigins(
+                        Arrays.asList(
+                                "http://localhost:5173",
+                                "http://localhost"
+                        )
+                );
+                cfg.setAllowedMethods(Collections.singletonList("*"));
+                cfg.setAllowCredentials(true);
+                cfg.setAllowedHeaders(Collections.singletonList("*"));
+                cfg.setExposedHeaders(Arrays.asList("Authorization"));
+                cfg.setMaxAge(3600L);
+                return cfg;
+            }
+        };
+    }
 }
