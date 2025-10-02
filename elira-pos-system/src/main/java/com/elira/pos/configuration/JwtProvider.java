@@ -1,6 +1,7 @@
 package com.elira.pos.configuration;
 
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -33,6 +34,17 @@ public class JwtProvider {
                 .claim("authorities", roles)
                 .signWith(key)
                 .compact();
+    }
+
+    public String getEmailFromJwtToken(String jwt) {
+        jwt = jwt.substring(7);
+        Claims claims = Jwts.parser()
+                .verifyWith(key)
+                .build()
+                .parseSignedClaims(jwt)
+                .getPayload();
+
+        return String.valueOf(claims.get("email"));
     }
 
     private String populateAuthorities(Collection<? extends GrantedAuthority> authorities) {
