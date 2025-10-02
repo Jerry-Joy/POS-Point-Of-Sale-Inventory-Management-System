@@ -1,4 +1,4 @@
-package com.elira.elira.pos.system.configuration;
+package com.elira.pos.configuration;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
