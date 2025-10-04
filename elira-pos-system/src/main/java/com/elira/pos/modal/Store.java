@@ -33,6 +33,7 @@ public class Store {
 
     private StoreStatus status;
 
+    @Embedded
     private StoreContact contact= new StoreContact();
 
     @PrePersist
