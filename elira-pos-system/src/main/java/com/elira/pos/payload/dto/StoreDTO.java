@@ -4,9 +4,11 @@ import com.elira.pos.domain.StoreStatus;
 import com.elira.pos.modal.StoreContact;
 import com.elira.pos.modal.User;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
+@Data
 public class StoreDTO {
 
     private Long id;
