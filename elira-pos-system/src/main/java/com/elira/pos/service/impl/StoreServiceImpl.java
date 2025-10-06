@@ -1,5 +1,6 @@
 package com.elira.pos.service.impl;
 
+import com.elira.pos.domain.StoreStatus;
 import com.elira.pos.exceptios.UserException;
 import com.elira.pos.mapper.StoreMapper;
 import com.elira.pos.modal.Store;
@@ -97,5 +98,17 @@ public class StoreServiceImpl implements StoreService {
         }
 
         return StoreMapper.toDTO(currentUser.getStore());
+    }
+
+    @Override
+    public StoreDTO moderateStore(Long id, StoreStatus status) throws Exception {
+
+        Store store = storeRepository.findById(id).orElseThrow(
+                ()-> new Exception("Store not found...")
+        );
+
+        store.setStatus(status);
+        Store updatedStore = storeRepository.save(store);
+        return StoreMapper.toDTO(updatedStore);
     }
 }
