@@ -1,7 +1,7 @@
 package com.elira.pos.service.impl;
 
 import com.elira.pos.domain.StoreStatus;
-import com.elira.pos.exceptios.UserException;
+import com.elira.pos.exceptions.UserException;
 import com.elira.pos.mapper.StoreMapper;
 import com.elira.pos.modal.Store;
 import com.elira.pos.modal.StoreContact;

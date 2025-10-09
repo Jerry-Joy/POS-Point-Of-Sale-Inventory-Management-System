@@ -1,6 +1,6 @@
 package com.elira.pos.service;
 
-import com.elira.pos.exceptios.UserException;
+import com.elira.pos.exceptions.UserException;
 import com.elira.pos.payload.dto.UserDto;
 import com.elira.pos.payload.response.AuthResponse;
 

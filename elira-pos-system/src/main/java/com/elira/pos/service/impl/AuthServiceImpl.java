@@ -2,7 +2,7 @@ package com.elira.pos.service.impl;
 
 import com.elira.pos.configuration.JwtProvider;
 import com.elira.pos.domain.UserRole;
-import com.elira.pos.exceptios.UserException;
+import com.elira.pos.exceptions.UserException;
 import com.elira.pos.mapper.UserMapper;
 import com.elira.pos.modal.User;
 import com.elira.pos.payload.dto.UserDto;
