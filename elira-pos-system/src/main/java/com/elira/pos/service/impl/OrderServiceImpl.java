@@ -5,6 +5,8 @@ import com.elira.pos.domain.PaymentType;
 import com.elira.pos.mapper.OrderMapper;
 import com.elira.pos.modal.*;
 import com.elira.pos.payload.dto.OrderDTO;
+import com.elira.pos.repository.CustomerRepository;
+import com.elira.pos.repository.OrderItemRepository;
 import com.elira.pos.repository.OrderRepository;
 import com.elira.pos.repository.ProductRepository;
 import com.elira.pos.service.OrderService;
@@ -27,6 +29,8 @@ public class OrderServiceImpl implements OrderService {
     private final UserService userService;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
+    private final OrderItemRepository orderItemRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public OrderDTO createOrder(OrderDTO orderDTO) throws Exception {
@@ -37,10 +41,18 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception("Cashier's branch not found");
         }
 
+        Customer customer = null;
+        if (orderDTO.getCustomerId() != null) {
+            customer = customerRepository.findById(orderDTO.getCustomerId())
+                    .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
+        } else if (orderDTO.getCustomer() != null) {
+            customer = customerRepository.save(orderDTO.getCustomer());
+        }
+
         Order order = Order.builder()
                 .branch(branch)
                 .cashier(cashier)
-                .customer(orderDTO.getCustomer())
+                .customer(customer)
                 .paymentType(orderDTO.getPaymentType())
                 .build();
 
@@ -99,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDTO> getOrderByCashier(Long cashierId) {
-        return orderRepository.findByCustomerId(cashierId)
+        return orderRepository.findByCashierId(cashierId)
                 .stream()
                 .map(OrderMapper::toDTO)
                 .collect(Collectors.toList());
