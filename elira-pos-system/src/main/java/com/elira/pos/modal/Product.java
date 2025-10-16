@@ -1,6 +1,5 @@
 package com.elira.pos.modal;
 
-import com.elira.pos.domain.StoreStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
