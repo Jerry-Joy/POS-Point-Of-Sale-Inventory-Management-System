@@ -1,10 +1,9 @@
 package com.elira.pos.modal;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -17,5 +16,16 @@ public class ShiftReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private LocalDateTime shiftStart;
+    private LocalDateTime shiftEnd;
+
+    private Double totalSales;
+    private Double totalRefund;
+    private Double netSale;
+    private Double totalOrders;
+
+    @ManyToOne
+    private User cashier;
 
 }
