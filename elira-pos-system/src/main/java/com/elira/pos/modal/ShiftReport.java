@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,11 +22,26 @@ public class ShiftReport {
     private LocalDateTime shiftEnd;
 
     private Double totalSales;
-    private Double totalRefund;
+    private Double totalRefunds;
     private Double netSale;
-    private Double totalOrders;
+    private int totalOrders;
 
     @ManyToOne
     private User cashier;
+
+    @ManyToOne
+    private Branch branch;
+
+    @Transient
+    private List<PaymentSummary> paymentSummaries;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Product> topSellingProducts;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Order> recentOrders;
+
+    @OneToMany(mappedBy = "shiftReport", cascade = CascadeType.ALL)
+    private List<Refund> refunds;
 
 }
