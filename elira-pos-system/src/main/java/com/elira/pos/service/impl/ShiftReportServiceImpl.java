@@ -28,12 +28,10 @@ public class ShiftReportServiceImpl implements ShiftReportService {
     private final UserRepository userRepository;
 
     @Override
-    public ShiftReportDTO startShift(Long cashierId,
-                                     Long branchId,
-                                     LocalDateTime shiftStart) throws Exception {
+    public ShiftReportDTO startShift() throws Exception {
 
         User currentUser = userService.getCurrentUser();
-        shiftStart = LocalDateTime.now();
+        LocalDateTime shiftStart = LocalDateTime.now();
         LocalDateTime startOfDay = shiftStart.withHour(0).withMinute(0).withSecond(0);
 
         LocalDateTime endOfDay = shiftStart.withHour(23).withMinute(59).withSecond(59);
@@ -50,6 +48,7 @@ public class ShiftReportServiceImpl implements ShiftReportService {
 
         ShiftReport shiftReport = ShiftReport.builder()
                 .cashier(currentUser)
+                .branch(branch)
                 .shiftStart(shiftStart)
                 .build();
 
@@ -160,7 +159,7 @@ public class ShiftReportServiceImpl implements ShiftReportService {
         List<Refund> refunds = refundRepository.findByCashierIdAndCreatedAtBetween(
                 user.getId(),
                 shiftReport.getShiftStart(),
-                shiftReport.getShiftEnd()
+                now
         );
 
         double totalRefunds = refunds.stream()
