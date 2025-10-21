@@ -10,6 +10,7 @@ import com.elira.pos.payload.response.AuthResponse;
 import com.elira.pos.repository.UserRepository;
 import com.elira.pos.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtProvider jwtProvider;
+    @Lazy
     private final CustomUserImplementation customUserImplementation;
 
     @Override

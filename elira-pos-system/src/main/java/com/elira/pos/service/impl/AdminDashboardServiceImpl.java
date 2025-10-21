@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -38,11 +39,12 @@ public class AdminDashboardServiceImpl implements AdminDashboardService {
     }
 
     @Override
-    public List<StoreRegistrationStateDTO> GetLast7DayRegistrationStats() {
+    public List<StoreRegistrationStateDTO> getLast7DayRegistrationStats() {
         LocalDate today = LocalDate.now();
         LocalDate sevenDaysAgo = today.minusDays(6);
+        LocalDateTime startDateTime = sevenDaysAgo.atStartOfDay();
 
-        List<Object[]> rawStats = storeRepository.getStoreRegistrationStats(sevenDaysAgo);
+        List<Object[]> rawStats = storeRepository.getStoreRegistrationStats(startDateTime);
 
         Map<String, Long> dataMap = new LinkedHashMap<>();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

@@ -9,6 +9,6 @@ import java.util.List;
 public interface AdminDashboardService {
 
     DashboardSummaryDTO getDashboardSummary();
-    List<StoreRegistrationStateDTO> GetLast7DayRegistrationStats();
+    List<StoreRegistrationStateDTO> getLast7DayRegistrationStats();
     StoreStatusDistributionDTO getStoreStatusDistribution();
 }

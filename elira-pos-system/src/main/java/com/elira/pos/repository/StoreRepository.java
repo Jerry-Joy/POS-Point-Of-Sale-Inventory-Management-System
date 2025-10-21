@@ -26,13 +26,13 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
     Long countByDate(LocalDate date);
 
     @Query("""
-            SELECT s.createdAt as regDate, COUNT(s) as count
+            SELECT DATE(s.createdAt) as regDate, COUNT(s) as count
             from Store s
             where s.createdAt >= :startDate
-            GROUP BY s.createdAt
+            GROUP BY DATE(s.createdAt)
             ORDER BY regDate DESC
             """)
     List<Object[]> getStoreRegistrationStats(
-            @Param("startDate") LocalDate startDate
+            @Param("startDate") LocalDateTime startDate
     );
 }
