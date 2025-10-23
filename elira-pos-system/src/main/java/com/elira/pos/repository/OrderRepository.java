@@ -68,7 +68,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             select o.paymentType, sum(o.totalAmount), count(o) from Order o
             where o.branch.id = :branchId
             And DATE(o.createdAt) = :date
-            GROUP o.paymentType
+            GROUP BY o.paymentType
             """)
     List<Object[]> getPaymentBreakdownByMethod(@Param("branchId") Long branchId,
                                                @Param("date") LocalDate date);
