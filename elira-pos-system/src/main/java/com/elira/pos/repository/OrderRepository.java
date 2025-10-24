@@ -2,6 +2,7 @@ package com.elira.pos.repository;
 
 import com.elira.pos.modal.Order;
 import com.elira.pos.modal.User;
+import com.elira.pos.payload.storeAnalytics.BranchSalesDTO;
 import com.elira.pos.payload.storeAnalytics.PaymentInsightDTO;
 import com.elira.pos.payload.storeAnalytics.TimeSeriesPointDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -75,7 +76,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("""
             SELECT sum (o.totalAmount) FROM Order o
-            WHERE o.branch.store.storeAdmin = :storeAdmin
+            WHERE o.branch.store.storeAdmin.id = :storeAdminId
             """)
     Optional<Double> sumTotalSalesByStoreAdmin(
             @Param("storeAdminId") Long storeAdminId
@@ -83,15 +84,15 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("""
             SELECT count (o) FROM Order o
-            WHERE o.branch.store.storeAdmin = :storeAdmin
+            WHERE o.branch.store.storeAdmin.id = :storeAdminId
             """)
-    Optional<Double> countByStoreAdmin(
+    Integer countByStoreAdmin(
             @Param("storeAdminId") Long storeAdminId
     );
 
     @Query("""
             select o from Order o
-            where o.branch.store.storeAdmin = :storeAdmin
+            where o.branch.store.storeAdmin.id = :storeAdminId
             And o.createdAt BETWEEN :start and :end
             """)
     List<Order> findAllByStoreAdminAndCreatedAtBetween(
@@ -106,7 +107,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             o.createdAt, sum(o.totalAmount)
             )
             from Order o
-            where o.branch.store.storeAdmin = :storeAdmin
+            where o.branch.store.storeAdmin.id = :storeAdminId
             And o.createdAt BETWEEN :start and :end
             GROUP BY o.createdAt
             ORDER BY o.createdAt ASC
@@ -122,10 +123,22 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             o.paymentType, sum(o.totalAmount)
             )
             from Order o
-            where o.branch.store.storeAdmin = :storeAdmin
+            where o.branch.store.storeAdmin.id = :storeAdminId
             GROUP BY o.paymentType
             """)
     List<PaymentInsightDTO> getSalesByPaymentMethod(
+            @Param("storeAdminId") Long storeAdminId
+    );
+
+    @Query("""
+            select new com.elira.pos.payload.storeAnalytics.BranchSalesDTO(
+            o.branch.name, sum(o.totalAmount)
+            )
+            from Order o
+            where o.branch.store.storeAdmin.id = :storeAdminId
+            GROUP BY o.branch.id
+            """)
+    List<BranchSalesDTO> getSalesByBranch(
             @Param("storeAdminId") Long storeAdminId
     );
 
