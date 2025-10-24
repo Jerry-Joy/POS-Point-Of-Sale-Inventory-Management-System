@@ -103,7 +103,7 @@ public class BranchAnalyticsServiceImpl implements BranchAnalyticsService {
         return rawData.stream().map(
                 obj -> CategorySalesDTO.builder()
                 .categoryName((String) obj[0])
-                .totalSales(((BigDecimal) obj[1]).longValue())
+                .totalSales(BigDecimal.valueOf((Double) obj[1]))
                 .quantitySold((Long) obj[2])
                 .build()
         ).collect(Collectors.toList());
@@ -155,7 +155,7 @@ public class BranchAnalyticsServiceImpl implements BranchAnalyticsService {
         int todayCashiers = orderRepository.countDistinctCashierByBranchAndDate(branchId, today);
         int yesterdayCashiers = orderRepository.countDistinctCashierByBranchAndDate(branchId, yesterday);
 
-                double cashierGrowth = calculateGrowth(orderGrowth, yesterdayCashiers);
+                double cashierGrowth = calculateGrowth(todayCashiers, yesterdayCashiers);
 
         int todayLowStock = inventoryRepository.countLowStockItems(branchId);
 

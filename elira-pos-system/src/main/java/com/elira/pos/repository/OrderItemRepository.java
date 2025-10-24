@@ -24,13 +24,14 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     );
 
     @Query("""
-            select c.name, sum(oi.quantity * oi.price) as totalAmount from OrderItem oi
+            select c.name, sum(oi.quantity * oi.price) as totalAmount, sum(oi.quantity)
+            from OrderItem oi
             join oi.product p
             join oi.order o
             join p.category c
             where o.branch.id = :branchId
             And o.createdAt BETWEEN :start and :end
-            GROUP BY p.id, c.name
+            GROUP BY c.name
             order by totalAmount desc
             """)
     List<Object[]> getCategoryWiseSales(
