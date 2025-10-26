@@ -3,6 +3,7 @@ import { Pause, ShoppingCart, Trash2 } from 'lucide-react'
 import React from 'react'
 import CartItem from './CartItem'
 import CartSummary from './CartSummary';
+import HeldOrderDialog from './HeldOrderDialog';
 
 const CartItems = [
   {
@@ -26,6 +27,7 @@ const CartItems = [
 ];
 
 const CartSection = () => {
+  const [showHeldOrdersDialog, setShowHeldOrdersDialog] = React.useState(false);
   return (
     <>
     <div className='border-r w-2/5 flex flex-col bg-card'>
@@ -38,7 +40,8 @@ const CartSection = () => {
           </h2>
 
           <div className="flex space-x-2">
-            <Button variant={"outline"} className="" size={"sm"}>
+            <Button onClick={() => setShowHeldOrdersDialog(true)}
+             variant={"outline"} className="" size={"sm"}>
               <Pause className='w-4 h-4 mr-1' />
               Hold
             </Button>
@@ -60,7 +63,10 @@ const CartSection = () => {
 
       <CartSummary />
     </div>
-    <HeldOrderDialog />
+    <HeldOrderDialog
+      showHeldOrdersDialog={showHeldOrdersDialog}
+      setShowHeldOrdersDialog={setShowHeldOrdersDialog}
+     />
     </>
   )
 }
