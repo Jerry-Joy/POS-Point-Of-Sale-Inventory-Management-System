@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { Dialog } from '@radix-ui/react-dialog'
 import React from 'react'
+import CustomerForm from './CustomerForm'
 
 const Customers = [
   {
@@ -19,15 +19,16 @@ const Customers = [
     email: "jane@example.com"
   },
   {
-    id: 2,
+    id: 3,
     fullName: "Alice Johnson",
     phone: "987-654-3210",
     email: "alice@example.com"
-  },
-
+  }
 ];
 
 const CustomerDialog = ({ showCustomerDialog, setShowCustomerDialog }) => {
+
+  const[showCustomerForm, setShowCustomerForm] = React.useState(false);
 
   const handleSelectCustomer = (customer) => {
     console.log("selected customer:", customer);
@@ -57,27 +58,34 @@ const CustomerDialog = ({ showCustomerDialog, setShowCustomerDialog }) => {
 
             <TableBody>
               {Customers.map((customer) => (
-                <TableRow>
+                <TableRow key={customer.id}>
                   <TableCell>{customer.fullName}</TableCell>
                   <TableCell>{customer.phone}</TableCell>
                   <TableCell>{customer.email}</TableCell>
                   <TableCell>
                     <Button variant={"outline"} className={"w-full"}
-                      onClick={handleSelectCustomer}>
+                      onClick={() => handleSelectCustomer(customer)}>
                       Select
                     </Button>
                   </TableCell>
-
                 </TableRow>
               ))}
-
             </TableBody>
           </Table>
         </div>
 
+        <CustomerForm
+          showCustomerForm={showCustomerForm}
+          setShowCustomerForm={setShowCustomerForm}
+         />
+
         <DialogFooter>
-          <Button>Add New Customer</Button>
+          <Button onClick={() => setShowCustomerForm(true)}>
+            Add New Customer
+          </Button>
         </DialogFooter>
+
+        
       </DialogContent>
     </Dialog>
   )
