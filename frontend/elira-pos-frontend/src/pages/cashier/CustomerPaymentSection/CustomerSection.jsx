@@ -2,13 +2,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Edit, User } from 'lucide-react'
 import React from 'react'
+import CustomerDialog from './CustomerDialog';
 
 const CustomerSection = () => {
 
-  const selectedCustomer = {
+  let selectedCustomer = {
     fullName: "John Doe",
     phone: "123-456-7890"
   };
+
+  selectedCustomer = null; // For testing no customer selected state
+  const [showCustomerDialog, setShowCustomerDialog] = React.useState(false);
   return (
     <div className='p-4 border-b'>
       <h2 className="text-lg font-semibold mb-3 flex items-center"><User className='w-5 h-5 mr-2' />
@@ -32,7 +36,7 @@ const CustomerSection = () => {
 
            <div className="">
              <Button variant={"outline"} 
-            size={"small"} 
+           // size={"small"} 
             className={"mt-2 w-full"}>
               <Edit />
             </Button>
@@ -41,14 +45,19 @@ const CustomerSection = () => {
 
         </Card>
       ) : (<div>
-          <p className='text-sm text-muted-foreground'>
-            No customer selected. Please select a customer too proceed.
-          </p>
-          <Button>
+          <Button 
+          onClick={() => setShowCustomerDialog(true)}
+          variant={"outline"} 
+          className={"w-full py-5"}>
             Select Customer
           </Button>
         </div>
       )}
+
+      <CustomerDialog
+        showCustomerDialog={showCustomerDialog}
+        setShowCustomerDialog={setShowCustomerDialog}
+       />
     </div>
   )
 }
