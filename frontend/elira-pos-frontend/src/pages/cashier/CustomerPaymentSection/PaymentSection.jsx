@@ -2,12 +2,13 @@
 import { Button } from '@/components/ui/button'
 import { CreditCard, Pause } from 'lucide-react'
 import React from 'react'
+import PaymentDialog from './PaymentDialog';
+
+const cartItems = [1];
 
 const PaymentSection = () => {
-  const cartItems = [
-    { id: 1, name: "Item 1", price: 299 },
-    { id: 2, name: "Item 2", price: 600 },
-  ];
+  const[showPaymentDialog, setShowPaymentDialog] = React.useState(false)
+  
   return (
     <div className='flex flex-1 flex-col p-4 justify-end'>
       <div className="space-y-4">
@@ -21,17 +22,24 @@ const PaymentSection = () => {
         </div>
 
         <div className="space-y-3">
-          <Button disabled={cartItems.length === 0} className={"w-full py-3 text-lg font-semibold"}>
+          <Button 
+          onClick={() => setShowPaymentDialog(true)}
+          disabled={cartItems.length === 0} className={"w-full py-3 text-lg font-semibold"}>
             <CreditCard className='w-5 h-5 mr-2' />
             Proccess Payment
           </Button>
 
           <Button variant={"outline"} disabled={cartItems.length === 0} className={"w-full py-3 text-lg font-semibold"}>
             <Pause className='w-5 h-5 mr-2' />
-            Proccess Payment
+            Hold Order
           </Button>
         </div>
       </div>
+
+      <PaymentDialog 
+        showPaymentDialog={showPaymentDialog}
+        setShowPaymentDialog={setShowPaymentDialog}
+      />
       
     </div>
   )
