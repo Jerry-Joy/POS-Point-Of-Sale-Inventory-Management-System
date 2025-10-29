@@ -1,13 +1,13 @@
 
 import './App.css'
-import { Button } from './components/ui/button'
 import CreateOrder from './pages/cashier/CreateOrder'
+import CustomerLookup from './pages/cashier/Customer Management/CustomerLookup'
 
 function App() {
 
   return (
     <>
-      <CreateOrder />
+      <CustomerLookup />
     </>
   )
 }
