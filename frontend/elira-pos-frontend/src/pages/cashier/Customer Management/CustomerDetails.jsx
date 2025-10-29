@@ -4,7 +4,7 @@ import { PlusIcon, StarIcon, UserIcon } from 'lucide-react'
 import React from 'react'
 
 const CustomerDetails = ({ customer }) => {
-  if (!customer) {
+ /* if (!customer) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
         <UserIcon className='h-4 w-4 mr-1' />
@@ -12,6 +12,7 @@ const CustomerDetails = ({ customer }) => {
       </div>
     )
   }
+  */
   return (
     <div className="p-4">
       <div className="flex justify-between items-start mb-6">
