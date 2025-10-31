@@ -14,19 +14,31 @@ const orders =[
     totalAmount: 150.00,
     paymentType: "CASH",
     status: "COMPLETED",
+    items: [
+      {
+        id: 1,
+        product: {
+          image: "https://tse2.mm.bing.net/th/id/OIP.CRUL6-HM53MSE1v05g_FAwHaJo?rs=1&pid=ImgDetMain&o=7&rm=3",
+          name: "Men black T-Shirt",
+          sellingPrice: 25.00,
+          sku: "TSHIRT-BLK-001"
+        },
+        quantity: 2
+      }
+    ]
   }
 ]
 
 const OrderTable = ({handleViewOrderDetails}) => {
   return (
     <div>
-       <h2 className="text-xl font-semibold mb-4">Recent Orders</h2>
+       <h2 className="text-2xl font-bold mb-4">Recent Orders</h2>
               <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="w-[150px]">Order ID</TableHead>
-                      <TableHead className="w-[150px]">Date/Time</TableHead>
-                      <TableHead className="w-[150px]">Customer</TableHead>
+                      <TableHead className="">Order ID</TableHead>
+                      <TableHead className="">Date/Time</TableHead>
+                      <TableHead className="">Customer</TableHead>
                       <TableHead className="">Amount</TableHead>
                       <TableHead className="">Payment Type</TableHead>
                       <TableHead className="">Status</TableHead>
