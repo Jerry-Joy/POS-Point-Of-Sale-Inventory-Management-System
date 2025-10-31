@@ -6,6 +6,7 @@ import ReturnReciptDialog from './ReturnReciptDialog'
 
 const RefundPage = () => {
   const [selectedOrder, setSelectedOrder] = React.useState(null);
+  const [showReturnReceiptDialog, setShowReturnReceiptDialog] = React.useState(false);
   const handleSelectOrder = (order) => setSelectedOrder(order);
   return (
     <div className='h-full flex flex-col'>
@@ -19,12 +20,18 @@ const RefundPage = () => {
         ) : (
           <div className="flex">
             <OrderDetailsSection selectedOrder={selectedOrder} handleSelectOrder={handleSelectOrder} />
-            <ReturnItemSection selectedOrder={selectedOrder} />
+            <ReturnItemSection selectedOrder={selectedOrder} setShowReturnReceiptDialog={setShowReturnReceiptDialog} />
           </div>
 
         )}
       </div>
-      {/* {selectedOrder && <ReturnReciptDialog />} */}
+      {selectedOrder && (
+        <ReturnReciptDialog
+          showReturnReceiptDialog={showReturnReceiptDialog}
+          setShowReturnReceiptDialog={setShowReturnReceiptDialog}
+          selectedOrder={selectedOrder}
+        />
+      )}
     </div>
   )
 }

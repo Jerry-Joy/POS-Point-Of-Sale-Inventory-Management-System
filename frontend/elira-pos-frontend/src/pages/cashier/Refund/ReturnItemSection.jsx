@@ -20,10 +20,14 @@ const refundMethods = [
   "BANK_TRANSFER"
 ]
 
-const ReturnItemSection = ({selectedOrder}) => {
+const ReturnItemSection = ({selectedOrder, setShowReturnReceiptDialog}) => {
   const [returnReason, setReturnReason] = React.useState("");
   const [otherReason, setOtherReason] = React.useState("");
   const [refundMethod, setRefundMethod] = React.useState("CASH");
+
+  const processRefund = () => {
+    setShowReturnReceiptDialog(true);
+  }
   return (
     <div className="p-4 w-1/2">
       <Card className={"mt-4"} >
@@ -79,7 +83,7 @@ const ReturnItemSection = ({selectedOrder}) => {
                 <span className="">${selectedOrder.totalAmount}</span>
               </div>
 
-              <Button className="w-full py-6 mt-5">
+              <Button onClick={processRefund} className="w-full py-6 mt-5">
                 Process Refund
               </Button>
             </div>
