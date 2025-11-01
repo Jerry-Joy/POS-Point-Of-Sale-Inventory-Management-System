@@ -54,44 +54,53 @@ const branch = {
 const BranchSidebar = () => {
   const location = useLocation();
   return (
-    <div className="w-64 border-r border-border bg-sidebar p-4 flex 
-    flex-col h-full relative">
+  <div className="w-64 border-r border-border bg-sidebar p-6 flex 
+  flex-col h-screen relative overflow-hidden">
 
-      <div className="flex justify-center">
-        <h1 className="flex item-center gap-3 text-xl font-bold text-sidebar-foreground">
-          <PackageIcon className='w-5 h-5 text-primary' />
+      <div className="flex justify-center mb-8">
+        <h1 className="flex items-center gap-3 text-xl font-bold text-sidebar-foreground">
+          <PackageIcon className='w-6 h-6 text-primary' />
           BNCH MANAGER
         </h1>
       </div>
 
-      {branch && (<div className="mb-6 px-4 py-3 bg-sidebar-accent rounded-lg">
-        <h3 className="font-medium text-sidebar-accent-foreground">
-          {branch.name}
-        </h3>
-        <p className="text-xs text-secondary-foreground/70 mt-1">
-          {branch.address}
-        </p>
-      </div>)}
+      {branch && (
+        <div className="mb-8 px-4 py-4 bg-sidebar-accent/80 rounded-lg border border-border/50">
+          <h3 className="font-medium text-sidebar-accent-foreground">
+            {branch.name}
+          </h3>
+          <p className="text-xs text-secondary-foreground/70 mt-2">
+            {branch.address}
+          </p>
+        </div>
+      )}
 
-      <nav className='space-y-2 flex-1'>
+  <nav className='space-y-2.5 flex-1 mb-6 overflow-y-auto pr-2'>
         {navItems.map((item) => (
           <Link
-
-            className={`flex items-center justify-between p-3 rounded-md hover:bg-sidebar-accent transition-colors ${location.pathname === item.path ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'text-sidebar-foreground'}`}
+            className={`flex items-center px-4 py-3 rounded-md hover:bg-sidebar-accent/80 transition-colors duration-200 
+              ${location.pathname === item.path 
+                ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium' 
+                : 'text-sidebar-foreground hover:text-sidebar-accent-foreground'
+              }`}
             key={item.path}
             to={item.path}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               {item.icon}
-              <span className="">{item.name}</span>
+              <span>{item.name}</span>
             </div>
           </Link>
         ))}
       </nav>
 
-      <div className="">
-        <Button className={"w-full py-6"}>
-          <LogOut /> Logout
+      <div className="pt-4 border-t border-border/50">
+        <Button 
+          variant="ghost" 
+          className="w-full py-3 px-4 justify-start gap-4 text-destructive hover:text-destructive hover:bg-destructive/10"
+        >
+          <LogOut className="w-5 h-5" />
+          <span>Logout</span>
         </Button>
       </div>
     </div>
