@@ -1,15 +1,19 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
+import { useSidebar } from '@/context/hook/useSidebar'
 
 import { AlignJustify } from 'lucide-react'
 import React from 'react'
 
 const POSHeader = () => {
+   const {setSidebarOpen} = useSidebar();
   return (
     <div className='bg-card border-b px-6 py-4'>
       <div className='flex items-center justify-between'>
         <div>
-          <Button>
+          <Button 
+           onClick={() => setSidebarOpen(true)}
+          >
             <AlignJustify />
           </Button>
         </div>
