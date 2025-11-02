@@ -1,5 +1,5 @@
 
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import CreateOrder from './pages/cashier/CreateOrder'
 import CustomerLookup from './pages/cashier/Customer Management/CustomerLookup'
@@ -8,6 +8,7 @@ import RefundPage from './pages/cashier/Refund/RefundPage'
 import ShiftSummaryPage from './pages/cashier/Shift Report/ShiftSummaryPage'
 import CashierRoutes from './routes/CashierRoutes'
 import BranchLayout from './pages/branch/Branch layout/BranchLayout'
+import BranchRoutes from './routes/BranchRoutes'
 
 function App() {
 
@@ -15,7 +16,8 @@ function App() {
     <>
       <Routes>
         {/* <Route path='/cashier/*' element={<CashierRoutes />} /> */}
-        <Route path='/' element={<BranchLayout />} />
+        <Route path='/' element={<Navigate to={"/branch"} />} />
+        <Route path='/branch/*' element={<BranchRoutes />} />
       </Routes>
     </>
   )

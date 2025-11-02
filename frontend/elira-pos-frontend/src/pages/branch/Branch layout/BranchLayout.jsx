@@ -1,6 +1,6 @@
 import React from 'react'
-import BranchSidebar from '../Dashboard/sidebar/BranchSidebar'
-import BranchTopbar from '../Dashboard/topbar/BranchTopbar'
+import BranchSidebar from '../sidebar/BranchSidebar'
+import BranchTopbar from '../topbar/BranchTopbar'
 import { Outlet } from 'react-router'
 
 const BranchLayout = ({children}) => {
